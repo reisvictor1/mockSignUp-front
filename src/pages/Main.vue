@@ -1,11 +1,16 @@
 <template>
-         <div class="container">
+        <div class="container">
             <h1> {{ username }} </h1>
-
             <p>email: {{ email }}</p>
             <p>senha: {{ password }}</p>
             <p>Endereço: {{ address }}</p>
-            <button v-on:click="deleteUser()" class="btn">Deletar Usuário</button>
+            <!--Definindo listener para delecao de usuario-->
+            <div>
+                <div style="float: right; width: 300px"> <button v-on:click="deleteUser()" class="btn">Deletar</button></div>
+                <div style="float: left; width: 300px"><button v-on:click="back()" class="btn">Voltar</button></div>
+            </div>
+            <br />
+            <br />
         </div>
 </template>
 
@@ -46,6 +51,10 @@ export default {
         }
     },
     methods: {
+        back: function(){
+            this.$router.push('/')
+            return
+        },
         deleteUser: function(){
             console.log(this.username)
             axios({
@@ -55,7 +64,7 @@ export default {
                     username: this.username
                 }
             }).then((response) => {
-                console.log('oi')
+                alert(response.data)
                 this.$router.push('/')
                 return response
             }).then((error) => {
